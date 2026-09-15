@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+interface Props { title?: string; description?: string; }
+const { title = 'Hugo Soares — Full-Stack Software Engineer', description = 'Informatics Engineering graduate (University of Minho) who designs and ships complete applications end-to-end. Java, TypeScript, AI services, Docker, CI/CD.' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <script is:inline>
+    try {
+      const t = localStorage.getItem('theme');
+      if (t === 'light') document.documentElement.classList.remove('dark');
+      else document.documentElement.classList.add('dark');
+    } catch {}
+  </script>
+</head>
+<body class="font-sans antialiased min-h-screen">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-[var(--color-text)] focus:text-[var(--color-bg)] focus:px-3 focus:py-2 focus:text-sm">Skip to content</a>
+  <header id="site-header" class="site-header fixed top-0 inset-x-0 z-50">
+    <nav class="max-w-wide mx-auto px-6 md:px-10 h-16 flex items-center justify-between" aria-label="Primary">
+      <a href={`${base}`} class="flex items-baseline gap-2 group">
+        <span class="font-display text-xl tracking-tight">Hugo Soares</span>
+        <span class="hidden sm:inline font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-faint)]">Braga · Java / TypeScript</span>
+      </a>
+      <div class="flex items-center gap-2 md:gap-4 text-[13px] font-medium">
+        <a href={`${base}#about`} class="hidden sm:inline px-2 py-2.5 text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"><span class="editorial-underline">About</span></a>
+        <a href={`${base}#work`} class="px-2 py-2.5 text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"><span class="editorial-underline">Work</span></a>
+        <a href={`${base}#skills`} class="hidden md:inline px-2 py-2.5 text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"><span class="editorial-underline">Capabilities</span></a>
+        <a href={`${base}#education`} class="hidden lg:inline px-2 py-2.5 text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"><span class="editorial-underline">Education</span></a>
+        <a href={`${base}#contact`} class="px-2 py-2.5 text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"><span class="editorial-underline">Contact</span></a>
+        <button id="theme-btn" aria-label="Toggle color theme" aria-pressed="true" class="font-mono text-[12px] w-10 h-10 inline-flex items-center justify-center rounded-full border border-[var(--color-hairline)] text-[var(--color-muted)] hover:text-[var(--color-accent)] hover:border-[var(--color-accent)] transition-colors">◐</button>
+      </div>
+    </nav>
+  </header>
+  <main id="main" class="pt-16" tabindex="-1"><slot /></main>
+  <footer class="hairline-t mt-32">
+    <div class="max-w-wide mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row gap-6 md:items-center justify-between">
+      <div class="font-mono text-[11px] tracking-wide text-[var(--color-muted)]">
+        <span class="text-[var(--color-text)]">Hugo Soares</span>
+        <span aria-hidden="true"> · </span>© {new Date().getFullYear()}
+        <span aria-hidden="true"> · </span>Built with Astro
+      </div>
+      <div class="flex items-center gap-5 font-mono text-[11px] tracking-wide text-[var(--color-muted)]">
+        <a href="https://github.com/yhugosoares" class="hover:text-[var(--color-text)] transition-colors">GitHub <span class="arrow-shift">↗</span></a>
+        <a href="mailto:hugoferreirasoares@gmail.com" class="hover:text-[var(--color-text)] transition-colors">Email <span class="arrow-shift">↗</span></a>
+        <a href="https://linkedin.com/in/yhugosoares" class="hover:text-[var(--color-text)] transition-colors">LinkedIn <span class="arrow-shift">↗</span></a>
+        <a href="#main" class="hover:text-[var(--color-text)] transition-colors">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+  <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+  <script is:inline>
+    const header = document.getElementById('site-header');
+    const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    const btn = document.getElementById('theme-btn');
+    const syncLabel = () => {
+      const dark = document.documentElement.classList.contains('dark');
+      if (btn) { btn.textContent = dark ? '◐' : '○'; btn.setAttribute('aria-pressed', String(dark)); }
+    };
+    syncLabel();
+    btn?.addEventListener('click', () => {
+      const el = document.documentElement;
+      el.classList.toggle('dark');
+      try { localStorage.setItem('theme', el.classList.contains('dark') ? 'dark' : 'light'); } catch {}
+      syncLabel();
+    });
+    const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } }), { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "reddit-story-pipeline",
+    "title": "Reddit Story Pipeline",
+    "repo": "yHugoSoares/reddit-tiktok-pipeline",
+    "dates": "2025 – August 2026",
+    "blurb": "Automated pipeline that turns Reddit stories into narrated, subtitled vertical videos.",
+    "problem": "Produces narrated, subtitled videos from Reddit stories without manual editing.",
+    "tech": ["Python", "DeepSeek API", "Docker", "Automation"],
+    "featured": true,
+    "demo": "",
+    "details": [
+      "Integrates the DeepSeek LLM API for rewriting, TTS voiceover, and subtitle rendering.",
+      "Containerized architecture with Docker Compose, persistent session management, and multi-platform publishing to TikTok, Instagram, and YouTube.",
+      "Reliability from day one: state persistence, post deduplication, dry-run mode for staged rollout, and cron/Ofelia scheduling for up to 3 posts per day."
+    ]
+  },
+  {
+    "slug": "zenyth-ide",
+    "title": "Zenyth IDE",
+    "repo": "yHugoSoares/Zenyth-IDE",
+    "dates": "November 2025 – Present",
+    "blurb": "Native desktop IDE in Tauri and React with local LLM inference over Ollama.",
+    "problem": "Runs real-time code execution and local AI assistance inside a native desktop app.",
+    "tech": ["React", "TypeScript", "Tauri", "Rust", "Ollama"],
+    "featured": true,
+    "demo": "",
+    "details": [
+      "Streams terminal I/O bidirectionally with zero data loss from a Tauri-wrapped React interface.",
+      "Rust proxy for local LLM inference (Ollama) with sub-100ms first-token latency, handling backpressure, cancellation, and graceful error recovery.",
+      "React-to-Rust IPC bridge that ports a web-based editor into a fully native desktop application."
+    ]
+  },
+  {
+    "slug": "vencordmobile",
+    "title": "VencordMobile",
+    "repo": "yHugoSoares/VencordMobile",
+    "dates": "2025 – Present",
+    "blurb": "Android client that injects the 155+ plugin Vencord bundle into Discord's mobile web app.",
+    "problem": "Brings desktop-only Discord plugins to mobile through a native-web bridge.",
+    "tech": ["Dart", "Flutter", "JavaScript", "WebView", "CI/CD"],
+    "featured": true,
+    "demo": "",
+    "details": [
+      "Loads Discord's mobile web app and injects the Vencord plugin bundle (155+ plugins).",
+      "Flutter-to-JavaScript bridge via postMessage for bidirectional native-web communication with synchronized state.",
+      "Automated delivery: esbuild bundling of 155+ plugins into a single IIFE, with GitHub Actions producing signed APKs on each release tag."
+    ]
+  }
+]
