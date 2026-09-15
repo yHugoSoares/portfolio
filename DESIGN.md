@@ -1,5 +1,9 @@
 # Portfolio - Design Spec
 
+> Superseded: shipped theme is warm editorial (paper `#faf8f3` / charcoal
+> `#171511`, accent `#4f6df5`/`#8ba0ff`, DM Serif Display + Manrope +
+> JetBrains Mono). See README for the live system. Kept for history.
+
 ## Visual Style
 
 - **Aesthetic**: Minimalist, dark-first, with subtle gradients

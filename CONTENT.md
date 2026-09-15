@@ -1,5 +1,8 @@
 # Portfolio - Content Plan
 
+> Superseded: live content follows the CV (3 projects, Minho education,
+> real contact). Kept for history.
+
 ## Hero
 
 **Name**: Hugo Soares

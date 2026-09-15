@@ -7,5 +7,4 @@ export default defineConfig({
   site: 'https://yhugosoares.github.io',
   base: '/portfolio',
   integrations: [tailwind({ applyBaseStyles: false }), sitemap()],
-  experimental: { clientPrerender: true },
 });

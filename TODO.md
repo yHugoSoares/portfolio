@@ -1,32 +1,36 @@
 # Portfolio Website - Implementation Checklist
 
+> Superseded planning doc — kept for history. Shipped scope differs:
+> 3 CV projects (not 6–8), no photo, no Framer Motion, no blog.
+
 ## Phase 1: Setup
-- [ ] Initialize Astro project with React + Tailwind
-- [ ] Configure GitHub Pages deployment
-- [ ] Set up global styles and design tokens
+- [x] Initialize Astro project with Tailwind
+- [x] Configure GitHub Pages deployment
+- [x] Set up global styles and design tokens
 
 ## Phase 2: Core Sections
-- [ ] Hero section with animated gradient background
-- [ ] About section with photo and bio
-- [ ] Projects section with card grid
-- [ ] Skills section with tech stack visualization
-- [ ] Contact section with social links
+- [x] Hero section (editorial statement + build notes)
+- [x] About section (bio + languages)
+- [x] Projects section (3 CV projects, case-study rows)
+- [x] Skills section (CV-verbatim capability rows)
+- [x] Education section (Minho 2023–2026)
+- [x] Contact section (email, GitHub, LinkedIn, CV PDFs)
 
 ## Phase 3: Polish
-- [ ] Add page transitions and scroll animations
-- [ ] Responsive design (mobile-first)
-- [ ] Dark/light mode toggle
-- [ ] SEO meta tags and OG image
-- [ ] Performance optimization (Lighthouse 90+)
+- [x] Scroll reveals (quiet, reduced-motion safe)
+- [x] Responsive design (mobile-first)
+- [x] Dark/light mode toggle
+- [x] SEO meta tags, canonical, sitemap, 404 page
+- [ ] OG social preview image (skipped: no real asset to use)
+- [x] Performance (CSS-only output, no client bundles)
 
 ## Phase 4: Content
-- [ ] Write project descriptions
-- [ ] Add project screenshots
-- [ ] Update bio and experience
-- [ ] Add resume PDF download link
+- [x] Project descriptions from CV bullets
+- [ ] Project screenshots (none exist; detail pages say so honestly)
+- [x] Bio and education from CV
+- [x] Resume PDF download links (EN + PT, real files in `public/`)
 
 ## Phase 5: Deploy
-- [ ] Create GitHub repo: yHugoSoares/portfolio
-- [ ] Enable GitHub Pages (deploy from main)
-- [ ] Configure custom domain (optional)
-- [ ] Test all links and responsive views
+- [x] GitHub repo: yHugoSoares/portfolio
+- [x] GitHub Pages via Actions workflow
+- [ ] Custom domain (optional, skipped)

@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+const base = import.meta.env.BASE_URL;
+---
+<Base title="Not found — Hugo Soares" description="This page does not exist. Return to the portfolio index.">
+  <section class="max-w-wide mx-auto px-6 md:px-10 pt-24 md:pt-32 pb-24">
+    <p class="eyebrow">404</p>
+    <h1 class="font-display tracking-tight text-5xl md:text-6xl mt-5">Nothing here.</h1>
+    <p class="mt-4 max-w-text leading-relaxed text-[var(--color-muted)]">This path has no page. The index and the project archive are one step back.</p>
+    <div class="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-[15px] font-semibold">
+      <a href={`${base}`} class="group">Return to index <span class="arrow-shift">←</span><span class="block h-px bg-[var(--color-text)] mt-1 group-hover:bg-[var(--color-accent)] transition-colors"></span></a>
+      <a href={`${base}projects/`} class="group text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors font-medium"><span class="editorial-underline">Browse the archive →</span></a>
+    </div>
+  </section>
+</Base>
