@@ -5,7 +5,7 @@ let generated: Record<string, any> = {};
 try { generated = (await import('../data/repos.generated.json')).default; } catch {}
 const order = ['reddit-story-pipeline', 'zenyth-ide', 'vencordmobile'];
 const featured = order.map((s) => projects.find((p: any) => p.slug === s)).filter(Boolean);
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 <Base>
   <!-- Hero -->
