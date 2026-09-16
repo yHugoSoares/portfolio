@@ -1,4 +1,11 @@
 {
+  "zenyth-ide": {
+    "stars": 0,
+    "language": "TypeScript",
+    "pushed_at": "2026-05-06T13:56:09Z",
+    "description": null,
+    "url": "https://github.com/yHugoSoares/Zenyth-IDE"
+  },
   "vencordmobile": {
     "stars": 0,
     "language": "C++",
@@ -12,12 +19,5 @@
     "pushed_at": "2026-08-17T22:20:17Z",
     "description": null,
     "url": "https://github.com/yHugoSoares/reddit-tiktok-pipeline"
-  },
-  "zenyth-ide": {
-    "stars": 0,
-    "language": "TypeScript",
-    "pushed_at": "2026-05-06T13:56:09Z",
-    "description": null,
-    "url": "https://github.com/yHugoSoares/Zenyth-IDE"
   }
 }
