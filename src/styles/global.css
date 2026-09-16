@@ -44,7 +44,17 @@ body {
   font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 0.6s ease;
 }
+
+/* Scroll stages: sections retint the whole scene by overriding --color-bg
+   on <body>. Everything painted from the token follows along. */
+body[data-stage="lift"] { --color-bg: #f2eee2; }
+body[data-stage="cool"] { --color-bg: #e9edf5; }
+body[data-stage="volt"] { --color-bg: #e8e6f6; }
+html.dark body[data-stage="lift"] { --color-bg: #1d1a14; }
+html.dark body[data-stage="cool"] { --color-bg: #141a26; }
+html.dark body[data-stage="volt"] { --color-bg: #1a1426; }
 ::selection { background: var(--color-accent); color: var(--color-on-accent); }
 
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
@@ -172,6 +182,64 @@ a:focus-visible .arrow-shift, .group:focus-visible .arrow-shift,
 }
 .prose-editorial p { line-height: 1.75; color: var(--color-text); }
 .prose-editorial p + p { margin-top: 1rem; }
+
+/* Scroll progress: 2px accent line under the header. */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  z-index: 60;
+  pointer-events: none;
+}
+
+/* Hero canvas: layered dot-field, painted by inline script. */
+#hero-fx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Custom cursor: dot + lagging ring. Desktop pointers only,
+   activated by script (adds .fx-cursor). Native cursor hides there. */
+#cursor-dot, #cursor-ring { display: none; }
+@media (pointer: fine) {
+  body.fx-cursor, body.fx-cursor a, body.fx-cursor button { cursor: none; }
+  #cursor-dot {
+    display: block;
+    position: fixed;
+    top: 0; left: 0;
+    width: 6px; height: 6px;
+    margin: -3px 0 0 -3px;
+    border-radius: 999px;
+    background: var(--color-accent);
+    z-index: 90;
+    pointer-events: none;
+  }
+  #cursor-ring {
+    display: block;
+    position: fixed;
+    top: 0; left: 0;
+    width: 32px; height: 32px;
+    margin: -16px 0 0 -16px;
+    border-radius: 999px;
+    border: 1px solid var(--color-muted);
+    z-index: 90;
+    pointer-events: none;
+    transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease, border-color 0.25s ease;
+  }
+  #cursor-ring.is-hot {
+    width: 52px; height: 52px;
+    margin: -26px 0 0 -26px;
+    border-color: var(--color-accent);
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
