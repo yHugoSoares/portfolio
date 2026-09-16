@@ -1,10 +1,10 @@
 {
-  "vencordmobile": {
+  "reddit-story-pipeline": {
     "stars": 0,
-    "language": "C++",
-    "pushed_at": "2026-07-16T20:41:59Z",
+    "language": "Python",
+    "pushed_at": "2026-08-17T22:20:17Z",
     "description": null,
-    "url": "https://github.com/yHugoSoares/VencordMobile"
+    "url": "https://github.com/yHugoSoares/reddit-tiktok-pipeline"
   },
   "zenyth-ide": {
     "stars": 0,
@@ -13,11 +13,11 @@
     "description": null,
     "url": "https://github.com/yHugoSoares/Zenyth-IDE"
   },
-  "reddit-story-pipeline": {
+  "vencordmobile": {
     "stars": 0,
-    "language": "Python",
-    "pushed_at": "2026-08-17T22:20:17Z",
+    "language": "C++",
+    "pushed_at": "2026-07-16T20:41:59Z",
     "description": null,
-    "url": "https://github.com/yHugoSoares/reddit-tiktok-pipeline"
+    "url": "https://github.com/yHugoSoares/VencordMobile"
   }
 }
