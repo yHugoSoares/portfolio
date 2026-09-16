@@ -11,7 +11,7 @@ const sorted = [...projects].sort((a: any, b: any) => order.indexOf(a.slug) - or
   <section class="max-w-wide mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-20">
     <p class="reveal eyebrow"><a href={`${base}`} class="hover:text-[var(--color-text)]">← Index</a><span aria-hidden="true"> · </span>Archive</p>
     <h1 class="font-display tracking-tight text-5xl md:text-6xl mt-5">Project archive</h1>
-    <p class="mt-4 max-w-text leading-relaxed text-[var(--color-muted)]">Three projects, each delivered end to end. Every entry links to notes with the full breakdown from my CV. Language and update dates are fetched from GitHub at build time.</p>
+    <p class="mt-4 max-w-text leading-relaxed text-[var(--color-muted)]">Three projects, each delivered end to end. Every entry links straight to its GitHub repository. Language and update dates are fetched from GitHub at build time.</p>
     <div class="mt-10 hairline-t" role="list">
       <div class="hidden md:grid md:grid-cols-12 gap-6 py-3 font-mono text-[10.5px] uppercase tracking-[0.16em] text-[var(--color-faint)]" aria-hidden="true">
         <span class="md:col-span-1">No.</span>
@@ -23,8 +23,9 @@ const sorted = [...projects].sort((a: any, b: any) => order.indexOf(a.slug) - or
       </div>
       {sorted.map((p: any, i: any) => {
         const g = generated[p.slug] ?? {};
+        const href = `https://github.com/${p.repo}`;
         return (
-          <a role="listitem" href={`${base}projects/${p.slug}/`} class="work-row group grid md:grid-cols-12 gap-1 md:gap-6 items-baseline py-5 md:py-6 px-2 -mx-2 md:px-4 md:-mx-4 border-b border-[var(--color-hairline)]">
+          <a role="listitem" href={href} class="work-row group grid md:grid-cols-12 gap-1 md:gap-6 items-baseline py-5 md:py-6 px-2 -mx-2 md:px-4 md:-mx-4 border-b border-[var(--color-hairline)]">
             <span class="md:col-span-1 font-mono text-[12px] text-[var(--color-faint)]">0{i + 1}</span>
             <span class="md:col-span-4 font-display text-2xl tracking-tight work-title">{p.title}</span>
             <span class="md:col-span-2 font-mono text-[11.5px] text-[var(--color-muted)]">{p.dates}</span>
