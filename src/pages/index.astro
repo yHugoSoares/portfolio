@@ -103,7 +103,7 @@ astro build</code></pre>
         <a href={`https://github.com/${p.repo}`} class="deck-row work-row group grid md:grid-cols-12 gap-3 md:gap-6 items-baseline py-8 md:py-10 px-2 -mx-2 md:px-4 md:-mx-4 border-b border-[var(--color-hairline)]">
           <span class="md:col-span-1 font-mono text-sm text-[var(--color-faint)] md:self-start md:pt-2">0{i + 1}</span>
           <span class="md:col-span-6">
-            <span class={`work-title font-display tracking-tight block ${i === 0 ? 'text-4xl md:text-5xl' : 'text-3xl md:text-4xl'}`}>{p.title}</span>
+            <span class={`work-title font-display tracking-tight block ${i === 0 ? 'text-4xl md:text-5xl' : 'text-3xl md:text-4xl'}`}>{p.title}<span class="arrow-shift md:hidden text-2xl align-middle"> ↗</span></span>
             <span class="mt-2 block font-mono text-[11.5px] text-[var(--color-faint)]">{p.dates}</span>
             <span class="mt-3 block max-w-text leading-relaxed text-[var(--color-muted)]">{p.blurb}</span>
             <span class="mt-2 block text-sm text-[var(--color-muted)]">{p.problem}</span>
@@ -112,7 +112,7 @@ astro build</code></pre>
             <span class="block uppercase tracking-[0.14em] text-[var(--color-faint)]">{p.tech.join(' · ')}</span>
             <span class="block mt-1">{generated[p.slug]?.language ? `${generated[p.slug].language} · ` : ''}{generated[p.slug]?.pushed_at ? `updated ${generated[p.slug].pushed_at.slice(0, 7)} · ` : ''}{p.repo.replace('yHugoSoares/', '')}</span>
           </span>
-          <span class="md:col-span-1 md:text-right text-xl" aria-hidden="true"><span class="arrow-shift">↗</span></span>
+          <span class="hidden md:block md:col-span-1 md:text-right text-xl" aria-hidden="true"><span class="arrow-shift">↗</span></span>
         </a>
       ))}
     </div>
@@ -157,7 +157,7 @@ astro build</code></pre>
     <div class="md:col-span-9 lg:col-span-7">
       <h2 class="font-display text-3xl md:text-4xl leading-[1.15] tracking-tight">Questions about the code<br />start on GitHub.</h2>
       <p class="mt-5 max-w-text body-copy text-[var(--color-muted)]">Each repository has its own README and issue tracker. For anything else, email works.</p>
-      <p class="mt-8"><a href="mailto:hugoferreirasoares@gmail.com" class="group font-display text-2xl md:text-3xl tracking-tight break-all"><span class="editorial-underline">hugoferreirasoares@gmail.com</span> <span class="arrow-shift text-xl align-middle">↗</span></a></p>
+      <p class="mt-8"><a href="mailto:hugoferreirasoares@gmail.com" class="group font-display text-xl md:text-3xl tracking-tight"><span class="editorial-underline">hugoferreirasoares@<wbr />gmail.com</span> <span class="arrow-shift text-xl align-middle">↗</span></a></p>
       <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-[var(--color-muted)]">
         <a href="https://github.com/yhugosoares" class="hover:text-[var(--color-text)] transition-colors">View on GitHub ↗</a>
         <a href="https://linkedin.com/in/yhugosoares" class="hover:text-[var(--color-text)] transition-colors">Open LinkedIn ↗</a>
