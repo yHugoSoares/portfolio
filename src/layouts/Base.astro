@@ -56,7 +56,10 @@ const base = import.meta.env.BASE_URL;
     </nav>
   </header>
   <main id="main" class="pt-16" tabindex="-1"><slot /></main>
-  <footer class="hairline-t mt-32">
+  <footer class="hairline-t mt-32 overflow-hidden">
+    <div class="max-w-wide mx-auto px-6 md:px-10 pt-12">
+      <p class="wordmark" aria-hidden="true">Hugo Soares</p>
+    </div>
     <div class="max-w-wide mx-auto px-6 md:px-10 py-10 flex flex-col md:flex-row gap-6 md:items-center justify-between">
       <div class="font-mono text-[11px] tracking-wide text-[var(--color-muted)]">
         <span class="text-[var(--color-text)]">Hugo Soares</span>

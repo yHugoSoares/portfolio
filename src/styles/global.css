@@ -51,6 +51,50 @@ body {
 
 .font-display { font-family: var(--font-display); font-weight: 400; }
 
+/* Race-brief display type: oversized, uppercase, track-tight. Sans-black
+   carries the speed; serif stays for editorial moments below the fold. */
+.hero-display {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.94;
+  font-size: clamp(2.25rem, 5.5vw, 4rem);
+}
+
+/* Ticker band: pure CSS marquee, duplicated track, pauses on hover. */
+.marquee { overflow: hidden; }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Pinned project deck: rows stick under the header and stack as you scroll.
+   No scroll-hijacking, just position: sticky. */
+.deck-row { background: var(--color-bg); }
+@media (min-width: 768px) {
+  .deck-row { position: sticky; top: 4rem; }
+}
+
+/* Giant footer wordmark: outline type, quiet until hover. */
+.wordmark {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  font-size: clamp(3.5rem, 13.5vw, 12rem);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-muted);
+  transition: color var(--dur-1) ease;
+  user-select: none;
+}
+.wordmark:hover { color: var(--color-accent-soft); }
+@supports not (-webkit-text-stroke: 1px black) {
+  .wordmark { color: var(--color-faint); -webkit-text-stroke: 0; }
+}
+
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.68rem;
