@@ -81,12 +81,8 @@ html.dark body[data-stage="volt"] { --color-bg: #1a1426; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
-/* Pinned project deck: rows stick under the header and stack as you scroll.
-   No scroll-hijacking, just position: sticky. */
+/* Project rows: opaque against the stage-tinted scene, hairline separated. */
 .deck-row { background: var(--color-bg); border-top: 1px solid var(--color-hairline); }
-@media (min-width: 768px) {
-  .deck-row { position: sticky; top: 4rem; }
-}
 
 /* Giant footer wordmark: outline type, quiet until hover. */
 .wordmark {

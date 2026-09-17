@@ -1,11 +1,4 @@
 {
-  "reddit-story-pipeline": {
-    "stars": 0,
-    "language": "Python",
-    "pushed_at": "2026-08-17T22:20:17Z",
-    "description": null,
-    "url": "https://github.com/yHugoSoares/reddit-tiktok-pipeline"
-  },
   "vencordmobile": {
     "stars": 0,
     "language": "C++",
@@ -19,5 +12,12 @@
     "pushed_at": "2026-05-06T13:56:09Z",
     "description": null,
     "url": "https://github.com/yHugoSoares/Zenyth-IDE"
+  },
+  "reddit-story-pipeline": {
+    "stars": 0,
+    "language": "Python",
+    "pushed_at": "2026-08-17T22:20:17Z",
+    "description": null,
+    "url": "https://github.com/yHugoSoares/reddit-tiktok-pipeline"
   }
 }

@@ -73,7 +73,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     </div>
     <div class="mt-10">
       {featured.map((p: any, i: any) => (
-        <a href={`https://github.com/${p.repo}`} style={`top: calc(4rem + ${i * 2.5}rem)`} class="deck-row work-row group grid md:grid-cols-12 gap-3 md:gap-6 items-baseline py-8 md:py-10 px-2 -mx-2 md:px-4 md:-mx-4 border-b border-[var(--color-hairline)]">
+        <a href={`https://github.com/${p.repo}`} class="deck-row work-row group grid md:grid-cols-12 gap-3 md:gap-6 items-baseline py-8 md:py-10 px-2 -mx-2 md:px-4 md:-mx-4 border-b border-[var(--color-hairline)]">
           <span class="md:col-span-1 font-mono text-sm text-[var(--color-faint)] md:self-start md:pt-2">0{i + 1}</span>
           <span class="md:col-span-6">
             <span class={`work-title font-display tracking-tight block ${i === 0 ? 'text-2xl md:text-5xl' : 'text-2xl md:text-4xl'}`}>{p.title}<span class="arrow-shift md:hidden text-2xl align-middle"> ↗</span></span>
