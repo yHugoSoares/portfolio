@@ -83,7 +83,7 @@ html.dark body[data-stage="volt"] { --color-bg: #1a1426; }
 
 /* Pinned project deck: rows stick under the header and stack as you scroll.
    No scroll-hijacking, just position: sticky. */
-.deck-row { background: var(--color-bg); }
+.deck-row { background: var(--color-bg); border-top: 1px solid var(--color-hairline); }
 @media (min-width: 768px) {
   .deck-row { position: sticky; top: 4rem; }
 }
