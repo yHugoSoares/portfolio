@@ -14,6 +14,21 @@ const prev = idx > 0 ? projects.find((x: any) => x.slug === order[idx - 1]) : nu
 const next = idx < order.length - 1 ? projects.find((x: any) => x.slug === order[idx + 1]) : null;
 const others = projects.filter((x: any) => x.slug !== p.slug && x.featured).slice(0, 2);
 const category = p.slug === 'reddit-story-pipeline' ? 'Automation · video pipeline' : p.slug === 'zenyth-ide' ? 'Developer tools · desktop' : 'Mobile · native-web bridge';
+const flows: Record<string, string[][]> = {
+  'reddit-story-pipeline': [
+    ['Reddit', 'DeepSeek', 'TTS', 'Subtitles', 'TikTok · IG · YT'],
+    ['Docker Compose', 'cron/Ofelia 3×/day', 'dedup + dry-run'],
+  ],
+  'zenyth-ide': [
+    ['React editor', 'Rust IPC bridge', 'Ollama (local)'],
+    ['Terminal I/O stream', 'sub-100ms first token', 'backpressure + cancel'],
+  ],
+  'vencordmobile': [
+    ['Flutter app', 'postMessage bridge', 'WebView + 155 plugins'],
+    ['esbuild IIFE bundle', 'GH Actions', 'signed APK'],
+  ],
+};
+const flow = flows[p.slug] ?? [];
 ---
 <Base title={`${p.title} — Hugo Soares`} description={p.blurb}>
   <article class="max-w-wide mx-auto px-6 md:px-10 pt-14 md:pt-20 pb-16">
@@ -28,6 +43,20 @@ const category = p.slug === 'reddit-story-pipeline' ? 'Automation · video pipel
           <p>{p.problem}</p>
           <h2>How it was built</h2>
           {(p.details ?? []).map((d: string) => <p>{d}</p>)}
+          {flow.length > 0 && (
+            <div class="mt-6" aria-label="System flow">
+              {flow.map((lane) => (
+                <p class="flow">
+                  {lane.map((node, j) => (
+                    <>
+                      {j > 0 && <span class="flow-arrow" aria-hidden="true">→</span>}
+                      <span class="flow-node">{node}</span>
+                    </>
+                  ))}
+                </p>
+              ))}
+            </div>
+          )}
           <h2>Stack</h2>
           <p class="font-mono text-[13px] text-[var(--color-muted)]">{p.tech.join(' · ')}</p>
         </div>
