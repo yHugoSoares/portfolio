@@ -54,9 +54,9 @@ const category = p.slug === 'reddit-story-pipeline' ? 'Automation · video pipel
         <p class="mt-4 font-mono text-[11px] leading-relaxed text-[var(--color-faint)]">Stars, language, and dates are fetched from GitHub at build time. A dash means the API returned nothing for that field.</p>
       </aside>
     </div>
-    <nav class="mt-20 hairline-t pt-6 flex items-center justify-between gap-6" aria-label="Other projects">
+    <nav class="mt-20 hairline-t pt-6 flex flex-wrap items-center justify-between gap-6" aria-label="Other projects">
       <span class="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--color-faint)]">Other projects</span>
-      <span class="flex gap-6 text-[15px] font-medium">
+      <span class="flex flex-wrap gap-x-6 gap-y-2 text-[15px] font-medium">
         {prev && <a href={`${base}projects/${prev.slug}/`} class="group"><span aria-hidden="true">← </span><span class="editorial-underline">{prev.title}</span></a>}
         {next && <a href={`${base}projects/${next.slug}/`} class="group"><span class="editorial-underline">{next.title}</span><span aria-hidden="true"> →</span></a>}
       </span>

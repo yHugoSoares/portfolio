@@ -27,11 +27,11 @@ const sorted = [...projects].sort((a: any, b: any) => order.indexOf(a.slug) - or
         return (
           <a role="listitem" href={href} class="work-row group grid md:grid-cols-12 gap-1 md:gap-6 items-baseline py-5 md:py-6 px-2 -mx-2 md:px-4 md:-mx-4 border-b border-[var(--color-hairline)]">
             <span class="md:col-span-1 font-mono text-[12px] text-[var(--color-faint)]">0{i + 1}</span>
-            <span class="md:col-span-4 font-display text-2xl tracking-tight work-title">{p.title}</span>
+            <span class="md:col-span-4 font-display text-2xl tracking-tight work-title">{p.title}<span class="arrow-shift md:hidden text-xl align-middle"> ↗</span></span>
             <span class="md:col-span-2 font-mono text-[11.5px] text-[var(--color-muted)]">{p.dates}</span>
             <span class="md:col-span-3 text-sm leading-relaxed text-[var(--color-muted)]">{p.blurb}</span>
             <span class="md:col-span-1 font-mono text-[11.5px] text-[var(--color-muted)]">{g.language ?? p.tech[0]}{g.pushed_at ? ` · ${g.pushed_at.slice(0, 7)}` : ''}</span>
-            <span class="md:col-span-1 md:text-right" aria-hidden="true"><span class="arrow-shift">↗</span></span>
+            <span class="hidden md:block md:col-span-1 md:text-right" aria-hidden="true"><span class="arrow-shift">↗</span></span>
           </a>
         );
       })}
