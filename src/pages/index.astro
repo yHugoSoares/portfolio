@@ -5,6 +5,7 @@ let generated: Record<string, any> = {};
 try { generated = (await import('../data/repos.generated.json')).default; } catch {}
 const order = ['reddit-story-pipeline', 'zenyth-ide', 'vencordmobile'];
 const featured = order.map((s) => projects.find((p: any) => p.slug === s)).filter(Boolean);
+const total = Object.keys(generated).length;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 <Base>
@@ -19,7 +20,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
           I design<br />&amp; ship<br />complete<br /><span class="text-[var(--color-accent)]">applications,</span><br />end to end.
         </h1>
         <p class="mt-7 max-w-text body-copy text-[var(--color-muted)]">
-          Informatics Engineering graduate. Java and TypeScript.
+          Software Engineering graduate. Java and TypeScript.
           AI services, Docker, CI/CD — Desktop, Web, Mobile.
         </p>
         <div class="mt-7 flex flex-wrap items-center gap-x-7 gap-y-3 text-[15px] font-semibold">
@@ -27,7 +28,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
           <a href="https://github.com/yhugosoares" class="group text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors font-medium"><span class="editorial-underline">View on GitHub ↗</span></a>
         </div>
         <p class="mt-8 hairline-t pt-5 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--color-muted)]">
-          B.Sc. Informatics Engineering, Minho 2023–2026
+          Bachelor's in Software Engineering, Minho 2023–2026
         </p>
       </div>
     </div>
@@ -88,7 +89,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
         </a>
       ))}
     </div>
-    <p class="mt-8"><a href={`${base}projects/`} class="group font-medium">Browse the archive <span class="arrow-shift">→</span><span class="block h-px max-w-[16rem] bg-[var(--color-hairline)] mt-2 group-hover:bg-[var(--color-accent)] transition-colors"></span></a></p>
+    <p class="mt-8"><a href={`${base}projects/`} class="group font-medium">Browse all {total} projects <span class="arrow-shift">→</span><span class="block h-px max-w-[16rem] bg-[var(--color-hairline)] mt-2 group-hover:bg-[var(--color-accent)] transition-colors"></span></a></p>
   </section>
 
   <!-- Skills -->
@@ -117,9 +118,9 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
   <section id="education" data-stage="lift" class="max-w-wide mx-auto px-6 md:px-10 py-14 md:py-28 hairline-t grid md:grid-cols-12 gap-8 scroll-mt-20">
     <div class="md:col-span-3"><p class="reveal eyebrow">04 / Education</p></div>
     <div class="md:col-span-9 lg:col-span-7">
-      <h2 class="font-display text-2xl md:text-4xl tracking-tight">B.Sc. Informatics Engineering</h2>
+      <h2 class="font-display text-2xl md:text-4xl tracking-tight">Bachelor's in Software Engineering</h2>
       <p class="mt-3 font-mono text-[12px] text-[var(--color-muted)]">University of Minho · 2023 – 2026</p>
-      <p class="mt-6 max-w-text body-copy text-[var(--color-muted)]">Relevant coursework: Object-Oriented Programming (Java), Software Analysis and Testing (JUnit, EvoSuite), Computer Systems Security, Computer Networks, Language Processing.</p>
+      <p class="mt-6 max-w-text body-copy text-[var(--color-muted)]">Relevant coursework: Object-Oriented Programming (Java, Servlets), Software Design and Software Architecture (UML, flowcharts), Software Analysis and Testing (JUnit, EvoSuite), Computer Systems Security, Computer Networks, Language Processing.</p>
     </div>
   </section>
 
@@ -129,7 +130,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
     <div class="md:col-span-9 lg:col-span-7">
       <h2 class="font-display text-2xl md:text-4xl leading-[1.15] tracking-tight">Questions about the code<br />start on GitHub.</h2>
       <p class="mt-5 max-w-text body-copy text-[var(--color-muted)]">Each repository has its own README and issue tracker. For anything else, email works.</p>
-      <p class="mt-8"><a href="mailto:hugoferreirasoares@gmail.com" class="group font-display text-lg md:text-3xl tracking-tight"><span class="editorial-underline">hugoferreirasoares@<wbr />gmail.com</span> <span class="arrow-shift text-xl align-middle">↗</span></a></p>
+      <p class="mt-8"><a href="mailto:hugoferreirasoares+work@gmail.com" class="group font-display text-lg md:text-3xl tracking-tight"><span class="editorial-underline">hugoferreirasoares+work@<wbr />gmail.com</span> <span class="arrow-shift text-xl align-middle">↗</span></a></p>
       <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-[var(--color-muted)]">
         <a href="https://github.com/yhugosoares" class="hover:text-[var(--color-text)] transition-colors">View on GitHub ↗</a>
         <a href="https://linkedin.com/in/yhugosoares" class="hover:text-[var(--color-text)] transition-colors">Open LinkedIn ↗</a>

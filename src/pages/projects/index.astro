@@ -4,14 +4,33 @@ import projects from '../../data/projects.json';
 let generated: Record<string, any> = {};
 try { generated = (await import('../../data/repos.generated.json')).default; } catch {}
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-const order = ['reddit-story-pipeline', 'zenyth-ide', 'vencordmobile'];
-const sorted = [...projects].sort((a: any, b: any) => order.indexOf(a.slug) - order.indexOf(b.slug));
+const pinned = ['reddit-story-pipeline', 'zenyth-ide', 'vencordmobile'];
+const bySlug = (s: string) => projects.find((p: any) => p.slug === s);
+const entry = (slug: string) => {
+  const g = generated[slug] ?? {};
+  const c = bySlug(slug);
+  return {
+    slug,
+    title: c?.title ?? g.title ?? slug,
+    blurb: c?.blurb ?? g.description ?? 'Public repository — details live in the README on GitHub.',
+    dates: c?.dates ?? (g.pushed_at ? `updated ${g.pushed_at.slice(0, 7)}` : ''),
+    lang: g.language ?? c?.tech?.[0] ?? '',
+    pushed: g.pushed_at ?? '',
+    curated: Boolean(c),
+  };
+};
+const rest = Object.keys(generated)
+  .filter((s) => !pinned.includes(s))
+  .map(entry)
+  .sort((a, b) => b.pushed.localeCompare(a.pushed));
+const all = [...pinned.filter((s) => generated[s] || bySlug(s)).map(entry), ...rest];
+const count = all.length;
 ---
-<Base title="Project archive — Hugo Soares" description="The three shipped projects: Reddit Story Pipeline, Zenyth IDE, VencordMobile.">
+<Base title={`Project archive — Hugo Soares`} description={`All ${count} public projects by Hugo Soares, from shipped apps to university coursework. Language and update dates fetched from GitHub at build time.`}>
   <section class="max-w-wide mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-20">
     <p class="reveal eyebrow"><a href={`${base}`} class="hover:text-[var(--color-text)]">← Index</a><span aria-hidden="true"> · </span>Archive</p>
     <h1 class="font-display tracking-tight text-4xl md:text-6xl mt-5">Project archive</h1>
-    <p class="mt-4 max-w-text leading-relaxed text-[var(--color-muted)]">Three projects, each delivered end to end. Every entry links straight to its GitHub repository. Language and update dates are fetched from GitHub at build time.</p>
+    <p class="mt-4 max-w-text leading-relaxed text-[var(--color-muted)]">{count} public repositories, each with its own page. Pinned work first, then the rest by most recent push. Language and update dates are fetched from GitHub at build time.</p>
     <div class="mt-10 hairline-t" role="list">
       <div class="hidden md:grid md:grid-cols-12 gap-6 py-3 font-mono text-[10.5px] uppercase tracking-[0.16em] text-[var(--color-faint)]" aria-hidden="true">
         <span class="md:col-span-1">No.</span>
@@ -19,19 +38,18 @@ const sorted = [...projects].sort((a: any, b: any) => order.indexOf(a.slug) - or
         <span class="md:col-span-2">Dates</span>
         <span class="md:col-span-3">Summary</span>
         <span class="md:col-span-1">Language</span>
-        <span class="md:col-span-1 text-right">Link</span>
+        <span class="md:col-span-1 text-right">Page</span>
       </div>
-      {sorted.map((p: any, i: any) => {
-        const g = generated[p.slug] ?? {};
-        const href = `https://github.com/${p.repo}`;
+      {all.map((p: any, i: any) => {
+        const href = `${base}projects/${p.slug}/`;
         return (
           <a role="listitem" href={href} class="work-row group grid md:grid-cols-12 gap-1 md:gap-6 items-baseline py-5 md:py-6 px-2 -mx-2 md:px-4 md:-mx-4 border-b border-[var(--color-hairline)]">
             <span class="md:col-span-1 font-mono text-[12px] text-[var(--color-faint)]">0{i + 1}</span>
-            <span class="md:col-span-4 font-display text-2xl tracking-tight work-title">{p.title}<span class="arrow-shift md:hidden text-xl align-middle"> ↗</span></span>
+            <span class="md:col-span-4 font-display text-2xl tracking-tight work-title">{p.title}<span class="arrow-shift md:hidden text-xl align-middle"> →</span></span>
             <span class="md:col-span-2 font-mono text-[11.5px] text-[var(--color-muted)]">{p.dates}</span>
             <span class="md:col-span-3 text-sm leading-relaxed text-[var(--color-muted)]">{p.blurb}</span>
-            <span class="md:col-span-1 font-mono text-[11.5px] text-[var(--color-muted)]">{g.language ?? p.tech[0]}{g.pushed_at ? ` · ${g.pushed_at.slice(0, 7)}` : ''}</span>
-            <span class="hidden md:block md:col-span-1 md:text-right" aria-hidden="true"><span class="arrow-shift">↗</span></span>
+            <span class="md:col-span-1 font-mono text-[11.5px] text-[var(--color-muted)]">{p.lang}{p.pushed ? ` · ${p.pushed.slice(0, 7)}` : ''}</span>
+            <span class="hidden md:block md:col-span-1 md:text-right" aria-hidden="true"><span class="arrow-shift">→</span></span>
           </a>
         );
       })}

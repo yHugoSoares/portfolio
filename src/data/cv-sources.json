@@ -1,0 +1,5 @@
+{
+  "$comment": "Single source of truth for the CV PDFs (built from LaTeX in yHugoSoares/CV). The build downloads these from GitHub into public/ so the portfolio always ships the latest CVs. Filenames are the local output names served by the portfolio.",
+  "en": { "repo": "yHugoSoares/CV", "ref": "main", "path": "CV_EN.pdf", "file": "Hugo-Soares-CV-EN.pdf" },
+  "pt": { "repo": "yHugoSoares/CV", "ref": "main", "path": "CV_PT.pdf", "file": "Hugo-Soares-CV-PT.pdf" }
+}

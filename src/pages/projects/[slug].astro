@@ -1,19 +1,50 @@
 ---
 import Base from '../../layouts/Base.astro';
 import projects from '../../data/projects.json';
+import generatedRaw from '../../data/repos.generated.json';
+const generated: Record<string, any> = generatedRaw ?? {};
+const pinned = ['reddit-story-pipeline', 'zenyth-ide', 'vencordmobile'];
+const restSlugs = Object.keys(generated)
+  .filter((s) => !pinned.includes(s))
+  .sort((a, b) => (generated[b]?.pushed_at || '').localeCompare(generated[a]?.pushed_at || ''));
+const slugs = [...pinned.filter((s) => generated[s] || projects.some((p: any) => p.slug === s)), ...restSlugs];
 export async function getStaticPaths() {
-  return projects.filter((p: any) => p.featured).map((p: any) => ({ params: { slug: p.slug }, props: { p } }));
+  const mod: any = await import('../../data/projects.json');
+  const cur = mod.default;
+  let gen: Record<string, any> = {};
+  try { gen = (await import('../../data/repos.generated.json')).default ?? {}; } catch {}
+  const pin = ['reddit-story-pipeline', 'zenyth-ide', 'vencordmobile'];
+  const rest = Object.keys(gen)
+    .filter((s) => !pin.includes(s))
+    .sort((a, b) => (gen[b]?.pushed_at || '').localeCompare(gen[a]?.pushed_at || ''));
+  const all = [...pin.filter((s) => gen[s] || cur.some((p: any) => p.slug === s)), ...rest];
+  return all.map((slug) => ({ params: { slug } }));
 }
-const { p } = Astro.props;
+const { slug } = Astro.params as { slug: string };
+const p = projects.find((x: any) => x.slug === slug);
+const g: any = generated[slug] ?? {};
+const repo = p?.repo ?? g.repo ?? `yHugoSoares/${slug}`;
+const title = p?.title ?? g.title ?? slug;
+const blurb = p?.blurb ?? g.description ?? 'Public repository — details live in the README on GitHub.';
+const dates = p?.dates ?? (g.pushed_at ? `updated ${g.pushed_at.slice(0, 7)}` : g.created_at ? `since ${g.created_at.slice(0, 4)}` : '');
+const tech: string[] = p?.tech ?? (g.language ? [g.language] : ['Repository']);
+const demo = p?.demo || g.homepage || '';
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-let g: any = {};
-try { g = (await import('../../data/repos.generated.json')).default[p.slug] ?? {}; } catch {}
-const order = ['reddit-story-pipeline', 'zenyth-ide', 'vencordmobile'];
-const idx = order.indexOf(p.slug);
-const prev = idx > 0 ? projects.find((x: any) => x.slug === order[idx - 1]) : null;
-const next = idx < order.length - 1 ? projects.find((x: any) => x.slug === order[idx + 1]) : null;
-const others = projects.filter((x: any) => x.slug !== p.slug && x.featured).slice(0, 2);
-const category = p.slug === 'reddit-story-pipeline' ? 'Automation · video pipeline' : p.slug === 'zenyth-ide' ? 'Developer tools · desktop' : 'Mobile · native-web bridge';
+const idx = slugs.indexOf(slug);
+const prev = idx > 0 ? slugs[idx - 1] : null;
+const next = idx >= 0 && idx < slugs.length - 1 ? slugs[idx + 1] : null;
+const label = (s: string) => projects.find((x: any) => x.slug === s)?.title ?? generated[s]?.title ?? s;
+const others = slugs.filter((s) => s !== slug && s !== prev && s !== next).slice(0, 3);
+const total = String(slugs.length).padStart(2, '0');
+const category = p
+  ? slug === 'reddit-story-pipeline'
+    ? 'Automation · video pipeline'
+    : slug === 'zenyth-ide'
+      ? 'Developer tools · desktop'
+      : 'Mobile · native-web bridge'
+  : g.language
+    ? `${g.language} · GitHub`
+    : 'GitHub repository';
 const flows: Record<string, string[][]> = {
   'reddit-story-pipeline': [
     ['Reddit', 'DeepSeek', 'TTS', 'Subtitles', 'TikTok · IG · YT'],
@@ -28,21 +59,32 @@ const flows: Record<string, string[][]> = {
     ['esbuild IIFE bundle', 'GH Actions', 'signed APK'],
   ],
 };
-const flow = flows[p.slug] ?? [];
+const flow = flows[slug] ?? [];
+const problem = p?.problem ?? blurb;
+const details: string[] = p?.details ?? (g.description && g.description !== blurb ? [g.description] : []);
 ---
-<Base title={`${p.title} — Hugo Soares`} description={p.blurb}>
+<Base title={`${title} — Hugo Soares`} description={blurb}>
   <article class="max-w-wide mx-auto px-6 md:px-10 pt-14 md:pt-20 pb-16">
-    <p class="reveal eyebrow"><a href={`${base}projects/`} class="hover:text-[var(--color-text)]">Return to projects</a><span aria-hidden="true"> · </span>0{idx + 1} / 03 · {category}</p>
+    <p class="reveal eyebrow"><a href={`${base}projects/`} class="hover:text-[var(--color-text)]">Return to projects</a><span aria-hidden="true"> · </span>0{idx + 1} / {total} · {category}</p>
     <div class="mt-6 grid lg:grid-cols-12 gap-10">
       <div class="lg:col-span-7">
-        <h1 class="font-display tracking-tight text-4xl md:text-6xl">{p.title}</h1>
-        <p class="mt-3 font-mono text-[12px] text-[var(--color-muted)]">{p.dates}</p>
-        <p class="mt-5 body-copy text-[var(--color-muted)] max-w-text">{p.blurb}</p>
+        <h1 class="font-display tracking-tight text-4xl md:text-6xl">{title}</h1>
+        <p class="mt-3 font-mono text-[12px] text-[var(--color-muted)]">{dates}</p>
+        <p class="mt-5 body-copy text-[var(--color-muted)] max-w-text">{blurb}</p>
         <div class="mt-10 prose-editorial">
           <h2>What it does</h2>
-          <p>{p.problem}</p>
-          <h2>How it was built</h2>
-          {(p.details ?? []).map((d: string) => <p>{d}</p>)}
+          <p>{problem}</p>
+          {details.length > 0 ? (
+            <>
+              <h2>How it was built</h2>
+              {details.map((d: string) => <p>{d}</p>)}
+            </>
+          ) : (
+            <>
+              <h2>Notes</h2>
+              <p>Full details live in the repository README on GitHub.</p>
+            </>
+          )}
           {flow.length > 0 && (
             <div class="mt-6" aria-label="System flow">
               {flow.map((lane) => (
@@ -58,21 +100,21 @@ const flow = flows[p.slug] ?? [];
             </div>
           )}
           <h2>Stack</h2>
-          <p class="font-mono text-[13px] text-[var(--color-muted)]">{p.tech.join(' · ')}</p>
+          <p class="font-mono text-[13px] text-[var(--color-muted)]">{tech.join(' · ')}</p>
         </div>
         <div class="mt-10 flex flex-wrap items-center gap-x-7 gap-y-3 font-medium">
-          <a href={`https://github.com/${p.repo}`} class="group">Open repository <span class="arrow-shift">↗</span><span class="block h-px bg-[var(--color-text)] mt-1 group-hover:bg-[var(--color-accent)] transition-colors"></span></a>
-          {p.demo && <a href={p.demo} class="text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"><span class="editorial-underline">Live demo ↗</span></a>}
+          <a href={`https://github.com/${repo}`} class="group">Open repository <span class="arrow-shift">↗</span><span class="block h-px bg-[var(--color-text)] mt-1 group-hover:bg-[var(--color-accent)] transition-colors"></span></a>
+          {demo && <a href={demo} class="text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"><span class="editorial-underline">Live demo ↗</span></a>}
         </div>
       </div>
       <aside class="lg:col-span-4 lg:col-start-9" aria-label="Project metadata">
         <dl class="hairline-t lg:sticky lg:top-24">
           {[
-            ['Language', g.language ?? p.tech[0]],
+            ['Language', g.language ?? tech[0]],
             ['Stars', g.stars ? `★ ${g.stars}` : '—'],
             ['Category', category],
             ['Updated', g.pushed_at ? g.pushed_at.slice(0, 10) : 'not yet fetched'],
-            ['Repository', p.repo],
+            ['Repository', repo],
           ].map(([k, v]) => (
             <div class="flex items-baseline justify-between gap-6 py-3.5 border-b border-[var(--color-hairline)]">
               <dt class="font-mono text-[10.5px] uppercase tracking-[0.16em] text-[var(--color-faint)] shrink-0">{k}</dt>
@@ -86,14 +128,14 @@ const flow = flows[p.slug] ?? [];
     <nav class="mt-20 hairline-t pt-6 flex flex-wrap items-center justify-between gap-6" aria-label="Other projects">
       <span class="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--color-faint)]">Other projects</span>
       <span class="flex flex-wrap gap-x-6 gap-y-2 text-[15px] font-medium">
-        {prev && <a href={`${base}projects/${prev.slug}/`} class="group"><span aria-hidden="true">← </span><span class="editorial-underline">{prev.title}</span></a>}
-        {next && <a href={`${base}projects/${next.slug}/`} class="group"><span class="editorial-underline">{next.title}</span><span aria-hidden="true"> →</span></a>}
+        {prev && <a href={`${base}projects/${prev}/`} class="group"><span aria-hidden="true">← </span><span class="editorial-underline">{label(prev)}</span></a>}
+        {next && <a href={`${base}projects/${next}/`} class="group"><span class="editorial-underline">{label(next)}</span><span aria-hidden="true"> →</span></a>}
       </span>
     </nav>
     {others.length > 0 && (
       <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-[var(--color-muted)]">
-        {others.filter((o: any) => o.slug !== prev?.slug && o.slug !== next?.slug).map((o: any) => (
-          <a href={`${base}projects/${o.slug}/`} class="hover:text-[var(--color-text)]">· {o.title}</a>
+        {others.map((o: string) => (
+          <a href={`${base}projects/${o}/`} class="hover:text-[var(--color-text)]">· {label(o)}</a>
         ))}
       </div>
     )}
